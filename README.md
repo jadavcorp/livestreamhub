@@ -86,13 +86,13 @@ A modern, dark-themed dashboard that lets you upload videos, build looping playl
 ## 🚀 One-Command Install (Ubuntu 22.04 / Debian 12)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/jadavcorp/livestream-hub/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/jadavcorp/livestreamhub/main/install.sh | sudo bash
 ```
 
 Or clone and run locally:
 
 ```bash
-git clone https://github.com/jadavcorp/livestream-hub.git
+git clone https://github.com/jadavcorp/livestreamhub.git
 cd livestream-hub
 sudo bash install.sh
 ```
@@ -116,7 +116,7 @@ When finished, visit `https://your-domain.com` and log in with **admin / admin12
 
 ```bash
 # 1. Clone
-git clone https://github.com/your-org/livestream-hub.git
+git clone https://github.com/your-org/livestreamhub.git
 cd livestream-hub
 
 # 2. Configure
