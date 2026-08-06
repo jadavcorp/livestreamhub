@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Builds
+**/.next/
+**/out/
+**/dist/
+**/build/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Storage (user data - keep folder structure via .gitkeep)
+storage/*
+!storage/.gitkeep
+!storage/videos/.gitkeep
+!storage/thumbnails/.gitkeep
+!storage/hls/.gitkeep
+!storage/backups/.gitkeep
+!storage/logs/.gitkeep
+!storage/uploads/.gitkeep
+
+# Logs
+*.log
+storage/logs/*.log.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,47 @@
+services:
+  livestream-hub:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: livestream-hub:latest
+    container_name: livestream-hub
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./storage:/app/storage
+      # Optional: mount custom SSL certs or fonts
+      # - ./fonts:/usr/share/fonts/custom:ro
+    environment:
+      - NODE_ENV=production
+      - JWT_SECRET=${JWT_SECRET:-please-change-this-to-a-long-random-string}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN:-7d}
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - DB_TYPE=${DB_TYPE:-sqlite}
+      - AUTO_RESUME_ON_BOOT=${AUTO_RESUME_ON_BOOT:-true}
+      - WATCHDOG_ENABLED=${WATCHDOG_ENABLED:-true}
+      - TZ=${TZ:-UTC}
+    # For NVIDIA NVENC hardware acceleration, uncomment:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+    # For VAAPI (Intel/AMD), uncomment:
+    # devices:
+    #   - /dev/dri:/dev/dri
+    networks:
+      - livestream-net
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+networks:
+  livestream-net:
+    driver: bridge
