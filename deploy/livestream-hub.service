@@ -1,0 +1,18 @@
+[Unit]
+Description=LiveStream Hub - 24/7 Streaming Manager (Docker Compose)
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/livestream-hub
+ExecStartPre=/usr/bin/docker compose -f /opt/livestream-hub/docker-compose.yml pull --quiet
+ExecStart=/usr/bin/docker compose -f /opt/livestream-hub/docker-compose.yml up -d
+ExecStop=/usr/bin/docker compose -f /opt/livestream-hub/docker-compose.yml down
+TimeoutStartSec=0
+
+# Auto-restart if container healthcheck fails
+[Install]
+WantedBy=multi-user.target

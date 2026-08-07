@@ -1,0 +1,15 @@
+# LiveStream Hub cron jobs
+# Install with: crontab -e
+# Or: sudo cp deploy/crontab.example /etc/cron.d/livestream-hub
+
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Daily backup at 3:00 AM
+0 3 * * * root /opt/livestream-hub/backup.sh >> /var/lib/livestream-hub/logs/backup.log 2>&1
+
+# Weekly auto-update at 4:00 AM on Sundays (optional)
+# 0 4 * * 0 root /opt/livestream-hub/update.sh >> /var/lib/livestream-hub/logs/update.log 2>&1
+
+# Health check - restart container if down, every 5 minutes
+*/5 * * * * root docker inspect -f '{{.State.Running}}' livestream-hub 2>/dev/null | grep -q true || (cd /opt/livestream-hub && docker compose up -d)
