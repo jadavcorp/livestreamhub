@@ -93,7 +93,7 @@ Or clone and run locally:
 
 ```bash
 git clone https://github.com/jadavcorp/livestreamhub.git
-cd livestream-hub
+cd livestreamhub
 sudo bash install.sh
 ```
 
